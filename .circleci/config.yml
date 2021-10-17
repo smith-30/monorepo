@@ -53,9 +53,9 @@ workflows:
     jobs:
       - go_15_linting:
       - go_15_build_and_test
-        requires:
-            - go_15_linting
+          requires:
+              - go_15_linting
       - go_16_linting:
       - go_16_build_and_test
-        requires:
-            - go_16_linting
+          requires:
+              - go_16_linting
