@@ -9,6 +9,7 @@ go_16: &go_16
     - image: cimg/go:1.16
 
 linting: &linting
+  parallelism: 2
   steps:
     - checkout
     - run:
@@ -19,6 +20,7 @@ linting: &linting
     # - run: make lint
 
 build_and_test: &build_and_test
+  parallelism: 2
   steps:
     - checkout
     - run: make build
