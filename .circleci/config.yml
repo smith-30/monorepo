@@ -34,12 +34,12 @@ build_and_test: &build_and_test
     # - run: make install-lint
     # - run: make lint
     - run: make build
-    - run: make ci-test TEST_RESULTS=${TEST_RESULTS}/unit-tests.xml
     - save_cache:
         name: Save go modules cache
         key: mod-v1-{{ checksum "go.sum" }}
         paths:
           - "/go/pkg"
+    - run: make ci-test TEST_RESULTS=${TEST_RESULTS}/unit-tests.xml
     - store_artifacts:
         path: /tmp/test-results
         destination: raw-test-output
