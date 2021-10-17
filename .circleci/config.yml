@@ -26,13 +26,12 @@ build_and_test: &build_and_test
     - checkout:
         path: ~/go/src/github.com/smith-30/monorepo
     - run: mkdir -p $TEST_RESULTS
-    - run: pwd
+    # - run: make install-lint
+    # - run: make lint
     - restore_cache:
         name: Restore go modules cache
         keys:
           - go-mod-v1-{{ checksum "go.sum" }}
-    # - run: make install-lint
-    # - run: make lint
     - run: make build
     - save_cache:
         name: Save go modules cache
