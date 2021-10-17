@@ -6,6 +6,8 @@ GOARCH=$(shell go env GOARCH)
 VERSION=$(shell git describe --tags --abbrev=7 --always)
 REVISION=$(shell git rev-parse --short HEAD)
 
+TEST_RESULTS=hoge
+
 NAME=service_a
 
 .PHONY: \
@@ -18,7 +20,7 @@ test:
 	go test ./...
 
 ci-test:
-	gotestsum --junitfile ${NAME}_unit-tests.xml
+	gotestsum --junitfile ${TEST_RESULTS}
 
 install-lint:
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b build/bin v1.42.1
