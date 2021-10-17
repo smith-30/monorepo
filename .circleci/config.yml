@@ -2,25 +2,11 @@ version: 2.1
 
 go_15: &go_15
   docker:
-    - image: circleci/golang:1.15
+    - image: cimg/go:1.15
 
 go_16: &go_16
   docker:
-    - image: circleci/golang:1.16
-
-go_mod_download: &go_mod_download
-  steps:
-    - checkout
-    - restore_cache:
-        name: Restore go modules cache
-        keys:
-          - mod-{{ checksum "go.sum" }}
-    - run: make build
-    - save_cache:
-        name: Save go modules cache
-        key: mod-{{ checksum "go.sum" }}
-        paths:
-          - "/go/pkg/mod"
+    - image: cimg/go:1.16
 
 linting: &linting
   steps:
@@ -29,8 +15,6 @@ linting: &linting
         name: Restore go modules cache
         keys:
           - mod-{{ checksum "go.sum" }}
-    - run: make fmt-diff
-    - run: make vet
     - run: make install-lint
     - run: make lint
     - save_cache:
@@ -39,21 +23,39 @@ linting: &linting
         paths:
           - "/go/pkg/mod"
 
+build_and_test: &build_and_test
+  steps:
+    - checkout
+    - restore_cache:
+        name: Restore go modules cache
+        keys:
+          - mod-{{ checksum "go.sum" }}
+    - run: make build
+    - run: make test
+    - save_cache:
+        name: Save go modules cache
+        key: mod-{{ checksum "go.sum" }}
+        paths:
+          - "/go/pkg/mod"
+
 jobs:
-  go_15_go_mod_download:
-    <<: [*go_15, *go_mod_download]
+  go_15_build_and_test:
+    <<: [*go_15, *build_and_test]
   go_15_linting:
     <<: [*go_15, *linting]
-  go_16_go_mod_download:
-    <<: [*go_16, *go_mod_download]
+  go_16_build_and_test:
+    <<: [*go_16, *build_and_test]
   go_16_linting:
     <<: [*go_16, *linting]
 
 workflows:
   golang-workflow:
     jobs:
-      - go_15_go_mod_download
       - go_15_linting:
-          requires:
-            - go_15_go_mod_download
-      - go_16_go_mod_download
+      - go_15_build_and_test
+        requires:
+            - go_15_linting
+      - go_16_linting:
+      - go_16_build_and_test
+        requires:
+            - go_16_linting
