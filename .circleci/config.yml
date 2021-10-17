@@ -11,9 +11,12 @@ go_16: &go_16
 linting: &linting
   steps:
     - checkout
-    - circleci tests split go_services.txt | xargs -L 1 bash -c 'cd "$0" && golangci-lint --timeout 3m run -v ./...'
-    - run: make install-lint
-    - run: make lint
+    - run:
+        name: lint
+        command: |
+          circleci tests split go_services.txt | xargs -L 1 bash -c 'cd "$0" && golangci-lint --timeout 3m run -v ./...'
+    # - run: make install-lint
+    # - run: make lint
 
 build_and_test: &build_and_test
   steps:
