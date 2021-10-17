@@ -31,13 +31,13 @@ build_and_test: &build_and_test
     - restore_cache:
         name: Restore go modules cache
         keys:
-          - go-mod-v1-{{ checksum "go.sum" }}
+          - go-mod-v1-{{ .Branch }}-{{ checksum "go.sum" }}
     - run: make build
     - save_cache:
         name: Save go modules cache
-        key: go-mod-v1-{{ checksum "go.sum" }}
+        key: go-mod-v1-{{ .Branch }}-{{ checksum "go.sum" }}
         paths:
-          - "/go/pkg/mod"
+          - /go/pkg/mod/cache
     - run: make ci-test TEST_RESULTS=${TEST_RESULTS}/unit-tests.xml
     - store_artifacts:
         path: /tmp/test-results
