@@ -39,7 +39,7 @@ build_and_test: &build_and_test
         name: Save go modules cache
         key: mod-v1-{{ checksum "go.sum" }}
         paths:
-          - "/go/pkg/mod"
+          - "/go/pkg"
     - store_artifacts:
         path: /tmp/test-results
         destination: raw-test-output
