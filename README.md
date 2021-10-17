@@ -1,6 +1,6 @@
 ## monorepo
 
-CircleCI configuration example with go monorepo.
+CircleCI configuration example with go monorepo.  
 See **.circleci/config.yml**
 
 ## Documentation
