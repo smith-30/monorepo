@@ -39,12 +39,8 @@ build_and_test: &build_and_test
 jobs:
   go_15_build_and_test:
     <<: [*go_15, *service_a, *build_and_test]
-  go_15_linting:
-    <<: [*go_15, *linting]
   go_16_build_and_test:
     <<: [*go_16, *build_and_test]
-  go_16_linting:
-    <<: [*go_16, *linting]
 
 workflows:
   golang-workflow:
