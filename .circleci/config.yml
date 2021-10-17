@@ -27,8 +27,8 @@ build_and_test: &build_and_test
         name: Restore go modules cache
         keys:
           - mod-{{ checksum "go.sum" }}
-    - run: make install-lint
-    - run: make lint
+    # - run: make install-lint
+    # - run: make lint
     - run: make build
     - run: make ci-test
     - save_cache:
