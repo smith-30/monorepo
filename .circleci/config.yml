@@ -21,7 +21,8 @@ go_build_and_test_steps: &go_build_and_test_steps
 
 build_and_test: &build_and_test
   steps:
-    - checkout
+    - checkout:
+      path: ~/go/src/github.com/smith-30/monorepo
     - restore_cache:
         name: Restore go modules cache
         keys:
@@ -29,7 +30,7 @@ build_and_test: &build_and_test
     - run: make install-lint
     - run: make lint
     - run: make build
-    - run: make test
+    - run: make ci-test
     - save_cache:
         name: Save go modules cache
         key: mod-{{ checksum "go.sum" }}
