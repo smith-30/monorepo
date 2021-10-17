@@ -9,10 +9,10 @@ go_16: &go_16
     - image: cimg/go:1.16
 
 service_a: &service_a
-  working_directory: ~/service_a
+  working_directory: ~/go/src/github.com/smith-30/monorepo/service_a
 
 service_b: &service_b
-  working_directory: ~/service_b
+  working_directory: ~/go/src/github.com/smith-30/monorepo/service_b
 
 go_build_and_test_steps: &go_build_and_test_steps
   - checkout
