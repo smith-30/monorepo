@@ -17,6 +17,9 @@ NAME=service_a
 test:
 	go test ./...
 
+ci-test:
+	gotestsum --junitfile ${NAME}_unit-tests.xml
+
 install-lint:
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b build/bin v1.42.1
 
