@@ -38,13 +38,19 @@ build_and_test: &build_and_test
           - "/go/pkg/mod"
 
 jobs:
-  go_15_build_and_test:
+  service_a_go_15_build_and_test:
     <<: [*go_15, *service_a, *build_and_test]
-  go_16_build_and_test:
+  service_a_go_16_build_and_test:
     <<: [*go_16, *service_a, *build_and_test]
+  service_b_go_15_build_and_test:
+    <<: [*go_15, *service_b, *build_and_test]
+  service_b_go_16_build_and_test:
+    <<: [*go_16, *service_b, *build_and_test]
 
 workflows:
   golang-workflow:
     jobs:
-      - go_15_build_and_test
-      - go_16_build_and_test
+      - service_a_go_15_build_and_test
+      - service_b_go_15_build_and_test
+      - service_a_go_16_build_and_test
+      - service_b_go_16_build_and_test
