@@ -38,7 +38,7 @@ build_and_test: &build_and_test
         name: Save go modules cache
         key: go-mod-v1-{{ .Branch }}-{{ checksum "go.sum" }}
         paths:
-          - /go/pkg/mod/cache
+          - /go/pkg/mod
     - run: make ci-test TEST_RESULTS=${TEST_RESULTS}/unit-tests.xml
     - store_artifacts:
         path: /tmp/test-results
