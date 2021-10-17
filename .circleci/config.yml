@@ -32,6 +32,7 @@ build_and_test: &build_and_test
         name: Restore go modules cache
         keys:
           - go-mod-v1-{{ .Branch }}-{{ checksum "go.sum" }}
+    - run: go mod download
     - run: make build
     - save_cache:
         name: Save go modules cache
