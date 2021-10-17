@@ -1,7 +1,18 @@
+GOVERSION=$(shell go version)
+GOOS=$(shell go env GOOS)
+GOARCH=$(shell go env GOARCH)
+
+# if tag doesnt exists, show revision
+VERSION=$(shell git describe --tags --abbrev=7 --always)
+REVISION=$(shell git rev-parse --short HEAD)
+
+NAME=service_a
+
 .PHONY: \
 	test \
 	install-lint \
 	lint \
+	build \
 
 test:
 	go test ./...
@@ -23,3 +34,6 @@ lint:
 		--enable=errname \
 		--enable=ifshort \
 		--enable=nilerr \
+
+build:
+	go build -trimpath -o build/${GOOS}_${GOARCH}/${NAME} main.go
