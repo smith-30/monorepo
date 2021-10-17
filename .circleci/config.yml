@@ -29,14 +29,14 @@ build_and_test: &build_and_test
     - restore_cache:
         name: Restore go modules cache
         keys:
-          - mod-{{ checksum "go.sum" }}
+          - mod-v1-{{ checksum "go.sum" }}
     # - run: make install-lint
     # - run: make lint
     - run: make build
     - run: make ci-test TEST_RESULTS=${TEST_RESULTS}/unit-tests.xml
     - save_cache:
         name: Save go modules cache
-        key: mod-{{ checksum "go.sum" }}
+        key: mod-v1-{{ checksum "go.sum" }}
         paths:
           - "/go/pkg/mod"
     - store_artifacts:
