@@ -22,7 +22,7 @@ go_build_and_test_steps: &go_build_and_test_steps
 build_and_test: &build_and_test
   steps:
     - checkout:
-      path: ~/go/src/github.com/smith-30/monorepo
+        path: ~/go/src/github.com/smith-30/monorepo
     - restore_cache:
         name: Restore go modules cache
         keys:
