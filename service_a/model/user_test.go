@@ -16,7 +16,7 @@ func TestNewUser(t *testing.T) {
 		{
 			name: "正常系",
 			want: &User{
-				ID: 2,
+				ID: 1,
 			},
 		},
 	}
