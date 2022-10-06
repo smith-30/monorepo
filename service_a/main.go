@@ -17,4 +17,10 @@ func main() {
 
 	p := []string{}
 	fmt.Printf("%#v\n", p)
+
+	hoge()
+}
+
+func hoge() {
+	fmt.Printf("test\n")
 }
