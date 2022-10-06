@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.2.3
+
 go_15: &go_15
   docker:
     - image: cimg/go:1.15
@@ -39,10 +42,11 @@ build_and_test: &build_and_test
         key: go-mod-v1-{{ .Branch }}-{{ checksum "go.sum" }}
         paths:
           - /go/pkg/mod
-    - run: make ci-test TEST_RESULTS=${TEST_RESULTS}/unit-tests.xml
+    - run: gotestsum --junitfile ${TEST_RESULTS}/unit-tests.xml -- -coverprofile=${TEST_RESULTS}/cover.out -p 1 ./...
+    - codecov/upload:
+          file: /tmp/test-results/cover.out
     - store_artifacts:
         path: /tmp/test-results
-        destination: raw-test-output
     - store_test_results:
         path: /tmp/test-results
 
