@@ -20,9 +20,6 @@ NAME=service_b
 test:
 	go test ./...
 
-ci-test:
-	gotestsum --junitfile ${TEST_RESULTS}/unit-tests.xml -- -coverprofile=${TEST_RESULTS}/cover.out -p 1 ./...
-
 install-lint:
 	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b build/bin v1.42.1
 
