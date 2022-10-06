@@ -65,5 +65,5 @@ workflows:
     jobs:
       - service_a_go_15_build_and_test
       - service_b_go_15_build_and_test
-      - service_a_go_16_build_and_test
-      - service_b_go_16_build_and_test
+      # - service_a_go_16_build_and_test
+      # - service_b_go_16_build_and_test
